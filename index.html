@@ -31,27 +31,24 @@
             })
         }
 
-        // le mot clé await dit je veux que tu attendes que la fonction soit résolue 
-        // attention que await ne fonction que sur une fonction asynchrone (async)
+       
         
-     
+        // ici on peut utiliser try catch pour récupèrer les erreurs 
         const getPosts = async () => {
-            var response = await get('https://jsonplaceholder.typicode.com/users')
-            const users = JSON.parse(response)
-            response = await get('https://jsonplaceholder.typicode.com/comments?userId='+users[0].id)
-            const posts = JSON.parse(response)
-            return posts
+            try{
+                var response = await get('https://jsonplaceholder.typicode.com/users')
+                const users = JSON.parse(response)
+                response = await get('https://jsonplaceholder.typicode.com/comments?userId='+users[0].id)
+                const posts = JSON.parse(response)
+                console.log(posts) 
+            }catch(error)
+            {
+                console.log('Il y a eu un problème', error)
+            }
         }
 
-        // une fonction async retourne va retourner une promesse donc on peut utiliser (then et catch pour récupèrer les erreurs) 
-        //console.log(getPosts())
-        getPosts().then((posts)=>{
-            console.log(posts[0])
-        }).catch((error)=>{
-            console.log(error)
-        }).then(()=>{
-            console.log('fin des requêtes AJAX')
-        })
+       
+        getPosts()
     
         
         /* https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/async_function */
